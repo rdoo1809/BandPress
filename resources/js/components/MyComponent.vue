@@ -7,6 +7,7 @@ const createRepo = async () => {
         alert(response.data.response);
         console.log(response.data)
     } catch (e) {
+        console.log(e)
         alert(e);
     }
 };

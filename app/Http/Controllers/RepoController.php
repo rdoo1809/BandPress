@@ -24,24 +24,23 @@ class RepoController
 
         $response = $this->gitHubService->createRepoFromTemplate($repoName);
 
+        if (isset($response['html_url'])) {
+            return response()->json([
+                "user" => $user,
+                "repo" => $repoName,
+                "response" => $response['answer']
+            ]);
+        } else {
+            return response()->json(['error' => 'GitHub repo creation failed'], 500);
 
-        return response()->json([
-            "user" => $user,
-            "repo" => $repoName,
-            "response" => $response['answer']
-        ]);
+        }
 
 
-//        if (isset($response['html_url'])) {
 ////             Store repo details in DB (assuming you have a `websites` table)
 ////            $user->websites()->create([
 ////                'repo_name' => $repoName,
 ////                'repo_url' => $response['html_url'],
 ////            ]);
 //
-//            return response()->json(['message' => 'Repo created!', 'repo_url' => $response['html_url']]);
-//        }
-//
-//        return response()->json(['error' => 'GitHub repo creation failed'], 500);
     }
 }

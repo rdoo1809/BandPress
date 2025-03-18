@@ -15,12 +15,6 @@ Route::get('dashboard', function () {
 
 Route::post('/create-repo', [RepoController::class, 'createUserRepo'])->name('create-repo');
 
-
-//Route::post('/create-repo', function () {
-//    return 'Hello, World!';
-//})->name('create-repo');
-
-
 Route::get('/hello', function () {
     return 'Hello, World!';
 });

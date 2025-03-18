@@ -20,29 +20,24 @@ class GitHubService
 
     public function createRepoFromTemplate($repoName)
     {
+        $response = Http::withToken($this->token)->post("https://api.github.com/repos/{$this->username}/{$this->templateRepo}/generate", [
+            'name' => $repoName,
+            'description' => "New BandPress repo from " . $this->templateRepo . " for " . $repoName,
+        ]);
 
-
-        return [
-            "answer" => "yoyoyo"
-        ];
-
-
-
-//        $response = Http::withToken($this->token)->post("https://api.github.com/repos/{$this->username}/{$this->templateRepo}/generate", [
-//            'owner' => $this->username,
-//            'name' => $repoName,
-//            'description' => "New BandPress repo from ".$this->templateRepo." for ".$repoName,
-//            'private' => false,
-//        ]);
-//
-//        // Log the full response for debugging
-//        Log::info('GitHub Response:', $response->json());
-//
-//        if ($response->successful()) {
-//            return $response->json();
-//        } else {
-//            Log::error('GitHub API Error:', $response->json());
-//            return null;
-//        }
+        // Check if the request was successful
+        if ($response->successful()) {
+            // Return only the relevant data from GitHub's response (repo URL, name, etc.)
+            return [
+                'repo_url' => $response->json()['html_url'],  // GitHub repo URL
+                'repo_name' => $response->json()['name'],    // GitHub repo name
+            ];
+        } else {
+            // Return an error message if the request failed
+            return [
+                'error' => 'Failed to create GitHub repository.',
+                'message' => $response->json()  // Optional: include more error details from GitHub
+            ];
+        }
     }
 }
