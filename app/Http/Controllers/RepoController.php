@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Services\GitHubService;
 use Illuminate\Support\Facades\Auth;

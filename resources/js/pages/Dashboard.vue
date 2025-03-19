@@ -11,6 +11,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
+
+defineProps({
+    hasWebsite: Boolean,
+    repoUrl: String,
+    liveUrl: String
+});
 </script>
 
 <template>
@@ -21,8 +27,13 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
 
 
-                <div class="flex items-center justify-center relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                <div v-if="!hasWebsite" class="flex items-center justify-center relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <CreateSite />
+                </div>
+
+                <div v-else class="flex flex-col items-center justify-center relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                   <h1>Your site is live!</h1>
+                   <a href="{{liveUrl}}" target="_blank" class="hover:text-blue-600">{{liveUrl}}</a>
                 </div>
 
 
