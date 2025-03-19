@@ -24,15 +24,17 @@ class RepoController
 
         $response = $this->gitHubService->createRepoFromTemplate($repoName);
 
-        if (isset($response['html_url'])) {
+        if (isset($response['repo_url'])) {
             return response()->json([
                 "user" => $user,
                 "repo" => $repoName,
-                "response" => $response['answer']
+                "response" => $response
             ]);
         } else {
-            return response()->json(['error' => 'GitHub repo creation failed'], 500);
-
+            return response()->json([
+                'error' => 'GitHub repo creation failed',
+                'details' => $response['message'] ?? 'Unknown error'
+            ], 500);
         }
 
 

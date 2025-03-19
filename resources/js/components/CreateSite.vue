@@ -4,7 +4,7 @@ import axios from 'axios';
 const createRepo = async () => {
     try {
        const response = await axios.post(route('create-repo'));
-        alert(response.data.response);
+        alert("Your site has been created!");
         console.log(response.data)
     } catch (e) {
         console.log(e)

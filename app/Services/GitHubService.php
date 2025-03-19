@@ -27,12 +27,14 @@ class GitHubService
 
         // Check if the request was successful
         if ($response->successful()) {
+            Log::info('GitHub API Response:', $response->json()); // Log the raw response
             // Return only the relevant data from GitHub's response (repo URL, name, etc.)
             return [
                 'repo_url' => $response->json()['html_url'],  // GitHub repo URL
                 'repo_name' => $response->json()['name'],    // GitHub repo name
             ];
         } else {
+            Log::info('RECEIVING A 500:', $response->json()); // Log the raw response
             // Return an error message if the request failed
             return [
                 'error' => 'Failed to create GitHub repository.',
