@@ -18,7 +18,7 @@ class GitHubService
         $this->templateRepo = env('GITHUB_TEMPLATE_REPO');
     }
 
-    public function createRepoFromTemplate($repoName)
+    public function createRepoFromTemplate($repoName): array
     {
         $response = Http::withToken($this->token)->post("https://api.github.com/repos/{$this->username}/{$this->templateRepo}/generate", [
             'name' => $repoName,
@@ -42,4 +42,35 @@ class GitHubService
             ];
         }
     }
+
+    public function getDatesComponent($repoOwner, $repoName, $filePath = 'src/components/Dates.vue')
+    {
+        $url = "https://api.github.com/repos/rdoo1809/City-Ground/contents/{$filePath}";
+        //https://github.com/rdoo1809/City-Ground
+
+        $response = Http::withToken($this->token)->get($url);
+
+        if ($response->failed()) {
+            throw new \Exception("Failed to fetch file: " . $response->body());
+        }
+
+        $fileData = $response->json();
+
+        return [
+            'content' => base64_decode($fileData['content']), // Decode file content
+            'sha' => $fileData['sha'], // Needed for updating the file
+        ];
+    }
+
+//    public function addEventToDatesComponent($repoOwner, $repoName, $eventData): array
+//    {
+//        // Step 1: Fetch the Dates.vue content
+//        $file = $this->getDatesComponent($repoOwner, $repoName);
+//        $content = $file['content'];
+//        $sha = $file['sha'];
+//
+//        return [
+//            'content' => $content,
+//        ];
+//    }
 }

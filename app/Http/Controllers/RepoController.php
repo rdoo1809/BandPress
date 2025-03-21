@@ -60,6 +60,15 @@ class RepoController
 
         $website->events()->create($validated);
 
-        return response()->json(['event data' => $validated]);
+
+
+        $response = $this->gitHubService->getDatesComponent($website, 'City-Ground');
+
+
+
+        return response()->json([
+            'event data' => $validated,
+            'github-response' => $response['content']
+        ]);
     }
 }

@@ -11,11 +11,9 @@ const form = ref({
 });
 
 const submitEvent = async () => {
-    console.log(form.value);
-
     try {
         const response = await axios.post(route('new-event'), form.value);
-        alert("Your Event has been added!");
+        alert('Your Event has been added!');
         console.log(response.data)
     } catch (e) {
         console.log(e)
