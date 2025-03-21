@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BandSite;
 use Illuminate\Http\Request;
 use App\Services\GitHubService;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Array_;
 
 class RepoController
 {
@@ -45,10 +47,7 @@ class RepoController
     public function createNewEvent(Request $request): \Illuminate\Http\JsonResponse {
         $user = Auth::user();
         $website = $user->website;
-
-        if (!$website) {
-            return response()->json(['error' => 'No website found.']);
-        }
+        if (!$website) return response()->json(['error' => 'No website found.']);
 
         $validated = $request->validate([
             'name' => 'required|string',
@@ -59,16 +58,16 @@ class RepoController
         ]);
 
         $website->events()->create($validated);
-
-
-
-        $response = $this->gitHubService->getDatesComponent($website, 'City-Ground');
-
-
+        $component = $this->deployUpdatedEvent($validated);
 
         return response()->json([
             'event data' => $validated,
-            'github-response' => $response['content']
+            'component' => $component
         ]);
+    }
+
+    public function deployUpdatedEvent(Array $eventData): array
+    {
+        return $this->gitHubService->addEventToDatesComponent('rdoo1809', 'City-Ground', $eventData);
     }
 }
