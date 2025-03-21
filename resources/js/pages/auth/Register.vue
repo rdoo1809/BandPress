@@ -9,7 +9,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
 const form = useForm({
-    name: '',
+    title: '',
     email: '',
     password: '',
     password_confirmation: '',

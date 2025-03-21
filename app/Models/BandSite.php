@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BandSite extends Model
 {
@@ -15,5 +16,10 @@ class BandSite extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(BandEvent::class, 'band_site_id');
     }
 }

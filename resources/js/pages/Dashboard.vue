@@ -4,6 +4,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import CreateSite from '@/components/CreateSite.vue';
+import NewEventForm from '@/components/NewEventForm.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -33,7 +34,7 @@ defineProps({
 
                 <div v-else class="flex flex-col items-center justify-center relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                    <h1>Your site is live!</h1>
-                   <a href="{{liveUrl}}" target="_blank" class="hover:text-blue-600">{{liveUrl}}</a>
+                   <a :href="liveUrl" target="_blank" class="hover:text-blue-600">{{liveUrl}}</a>
                 </div>
 
 
@@ -44,8 +45,9 @@ defineProps({
                     <PlaceholderPattern />
                 </div>
             </div>
+
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
-                <PlaceholderPattern />
+                <NewEventForm />
             </div>
         </div>
     </AppLayout>

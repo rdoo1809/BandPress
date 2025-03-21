@@ -17,7 +17,6 @@ class RepoController
 
     public function createUserRepo(Request $request): \Illuminate\Http\JsonResponse
     {
-
         $user = Auth::user();
         $repoName = 'band-press-' . $user->email;
 
@@ -41,5 +40,26 @@ class RepoController
                 'details' => $response['message'] ?? 'Unknown error'
             ], 500);
         }
+    }
+
+    public function createNewEvent(Request $request): \Illuminate\Http\JsonResponse {
+        $user = Auth::user();
+        $website = $user->website;
+
+        if (!$website) {
+            return response()->json(['error' => 'No website found.']);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'day' => 'required|string',
+            'month' => 'required|string',
+            'description' => 'required|string',
+            'venue_link' => 'required|string',
+        ]);
+
+        $website->events()->create($validated);
+
+        return response()->json(['event data' => $validated]);
     }
 }
