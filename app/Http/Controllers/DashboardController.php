@@ -16,12 +16,14 @@ class DashboardController
         $repoUrl = $hasWebsite ? $user->website->repo_url : null;
         $liveUrl = $hasWebsite ? $user->website->live_url : null;
         $dbEvents = $hasWebsite ? $user->website->events : null;
+        $dbReleases = $hasWebsite ? $user->website->releases : null;
 
         return Inertia::render('Dashboard', [
             'hasWebsite' => $hasWebsite,
             'repoUrl' => $repoUrl,
             'liveUrl' => $liveUrl,
             'dbEvents' => $dbEvents,
+            'dbReleases' => $dbReleases,
         ]);
     }
 }

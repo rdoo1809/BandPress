@@ -46,7 +46,7 @@ const handleFileChange = (event: any) => {
         </button>
 
         <transition name="fade">
-            <form v-if="true" @submit.prevent="submitRelease"
+            <form v-if="showForm" @submit.prevent="submitRelease"
                   class="mt-4 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md space-y-6">
 
                 <div>

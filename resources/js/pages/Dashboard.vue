@@ -21,6 +21,7 @@ defineProps({
     repoUrl: String,
     liveUrl: String,
     dbEvents: Object,
+    dbReleases: Object,
 });
 </script>
 
@@ -54,8 +55,9 @@ defineProps({
 
                 <div class="full-length-div-pattern">
                     <NewReleaseForm />
-                    <Releases />
+                    <Releases :database-releases="dbReleases"/>
                 </div>
+
                 <div class="full-length-div-pattern">
                     <PlaceholderPattern />
                 </div>
