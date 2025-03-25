@@ -102,26 +102,37 @@ class GitHubService
 
     public function addReleaseToReleasesComponent($repoOwner, $repoName, $releaseData): array
     {
+        //upload the release image to gh first
+        $filename = basename($releaseData['cover_image']);
+        $imagePath = storage_path("app/public/releases/{$filename}");
+        $githubImagePath = "public/images/{$filename}"; // Destination in GitHub repo
+        $imageUploadResponse = $this->uploadImageToGitHub('rdoo1809', 'City-Ground', $imagePath, $githubImagePath);
+
         // Step 1: Fetch the Dates.vue content
         $file = $this->getReleaseComponent('rdoo1809', 'City-Ground');
         $content = $file['content'];
         $sha = $file['sha'];
 
         // Step 2: Define the new <Release /> component
-        $newRelease = "<Release :image=\"'{$releaseData['cover_image']}'\" link=\"{$releaseData['host_link']}\" />\n";
+        $newRelease = "<Release :image=\"'{$githubImagePath}'\" link=\"{$releaseData['host_link']}\" />\n";
 
         // Step 3: Insert before the closing </ul> tag
         $pattern = '/(<\/ul>)/';
         $replacement = "$newRelease$1";
         $updatedContent = preg_replace($pattern, $replacement, $content, 1);
-
-        return [
-            'component_fetch' => $content,
-            'content' => $updatedContent
-        ];
+//
+//        return [
+//            'image_upload_response' => [
+//                'image_response' => $imageUploadResponse,
+//                'image_path' => $imagePath,
+//                'cover_image' => $releaseData['cover_image'],
+//                ],
+//            'component_fetch' => $content,
+//            'content' => $updatedContent
+//        ];
 
         // Step 4: Commit and push the updated file
-//        return $this->updateDatesComponent('rdoo1809', 'City-Ground', $updatedContent, $sha);
+        return $this->updateCoverFlowComponent('rdoo1809', 'City-Ground', $updatedContent, $sha);
     }
 
     public function getReleaseComponent($repoOwner, $repoName, $filePath = 'src/components/CoverFlow.vue')
@@ -142,4 +153,43 @@ class GitHubService
         ];
     }
 
+    public function updateCoverFlowComponent($repoOwner, $repoName, $updatedContent, $sha, $filePath = 'src/components/CoverFlow.vue')
+    {
+        $url = "https://api.github.com/repos/rdoo1809/City-Ground/contents/{$filePath}";
+
+        $response = Http::withToken($this->token)->put($url, [
+            'message' => 'Added new Release to CoverFlow.vue',
+            'content' => base64_encode($updatedContent),
+            'sha' => $sha,
+        ]);
+
+        if ($response->failed()) {
+            return ['error' => 'Failed to update CoverFlow.vue: ' . $response->body()];
+        }
+
+        return $response->json();
+    }
+
+    public function uploadImageToGitHub($repoOwner, $repoName, $localFilePath, $githubFilePath)
+    {
+        $githubApiUrl = "https://api.github.com/repos/rdoo1809/City-Ground/contents/{$githubFilePath}";
+
+        if (!file_exists($localFilePath)) {
+            return ['error' => 'File not found'];
+        }
+
+        $imageContent = base64_encode(file_get_contents($localFilePath));
+
+        $response = Http::withToken($this->token)->put($githubApiUrl, [
+            'message' => "Adding new release image: {$githubFilePath}",
+            'content' => $imageContent,
+            'branch' => 'main'
+        ]);
+
+        if ($response->failed()) {
+            return ['error' => 'Failed to upload image: ' . $response->body()];
+        }
+
+        return ['success' => true, 'path' => $githubFilePath];
+    }
 }
