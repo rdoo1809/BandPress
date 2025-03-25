@@ -20,7 +20,7 @@ const submitRelease = async () => {
     }
 
     try {
-        const response = await axios.post(route(''), formData, {
+        const response = await axios.post(route('new-release'), formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
         console.log(response.data);

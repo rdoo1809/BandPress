@@ -44,7 +44,8 @@ class RepoController
         }
     }
 
-    public function createNewEvent(Request $request): \Illuminate\Http\JsonResponse {
+    public function createNewEvent(Request $request): \Illuminate\Http\JsonResponse
+    {
         $user = Auth::user();
         $website = $user->website;
         if (!$website) return response()->json(['error' => 'No website found.']);
@@ -66,30 +67,27 @@ class RepoController
         ]);
     }
 
-    public function deployUpdatedEvent(Array $eventData): array
+    public function deployUpdatedEvent(array $eventData): array
     {
         return $this->gitHubService->addEventToDatesComponent('rdoo1809', 'City-Ground', $eventData);
     }
 
-    public function createNewRelease(Request $request): \Illuminate\Http\JsonResponse {
+    public function createNewRelease(Request $request): \Illuminate\Http\JsonResponse
+    {
         $user = Auth::user();
         $website = $user->website;
         if (!$website) return response()->json(['error' => 'No website found.']);
 
-//        $validated = $request->validate([
-//            'name' => 'required|string',
-//            'day' => 'required|string',
-//            'month' => 'required|string',
-//            'description' => 'required|string',
-//            'venue_link' => 'required|string',
-//        ]);
-//
-//        $website->events()->create($validated);
-//        $component = $this->deployUpdatedEvent($validated);
-//
+        $validated = $request->validate([
+            'hostLink' => 'required|url',
+            'coverImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'band_site_id' => 'required|exists:band_sites,id',
+        ]);
+
+        $website->releases()->create($validated);
+
         return response()->json([
-            'key' => 'value',
+            'website' => $website,
         ]);
     }
-
 }
