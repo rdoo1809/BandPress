@@ -18,6 +18,7 @@ defineProps({
     hasWebsite: Boolean,
     repoUrl: String,
     liveUrl: String,
+    dbEvents: Object,
 });
 </script>
 
@@ -48,8 +49,7 @@ defineProps({
             >
                 <div class="full-length-div-pattern">
                     <NewEventForm />
-
-                    <Events />
+                    <Events :database-events="dbEvents"/>
                 </div>
 
                 <div class="full-length-div-pattern">
