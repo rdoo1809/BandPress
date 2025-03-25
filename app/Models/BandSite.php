@@ -22,4 +22,9 @@ class BandSite extends Model
     {
         return $this->hasMany(BandEvent::class, 'band_site_id');
     }
+
+    public function releases(): HasMany
+    {
+        return $this->hasMany(BandRelease::class, 'band_site_id');
+    }
 }

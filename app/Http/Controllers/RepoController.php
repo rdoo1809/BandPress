@@ -81,13 +81,28 @@ class RepoController
         $validated = $request->validate([
             'hostLink' => 'required|url',
             'coverImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'band_site_id' => 'required|exists:band_sites,id',
         ]);
 
-        $website->releases()->create($validated);
+        // Handle image upload if present
+        $imageUrl = null;
+        if ($request->hasFile('coverImage')) {
+            $image = $request->file('coverImage');
+            $imagePath = $image->store('releases', 'public');  // Store the image locally in 'releases' directory
+
+            // Optionally, you can later implement the functionality to upload this image to GitHub if needed
+            $imageUrl = asset('storage/' . $imagePath);
+        }
+
+        $website->releases()->create([
+            'host_link' => $validated['hostLink'],
+            'cover_image' => $imageUrl,
+            'band_site_id' => $user->id
+            ]);
 
         return response()->json([
-            'website' => $website,
+            'hostLink' => $validated['hostLink'],
+            'coverImage' => $imageUrl,
+            'band_site_id' => $user->id
         ]);
     }
 }

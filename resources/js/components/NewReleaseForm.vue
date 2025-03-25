@@ -16,7 +16,7 @@ const submitRelease = async () => {
     const formData = new FormData();
     formData.append('hostLink', form.value.hostLink);
     if (form.value.coverImage) {
-        formData.append('image', form.value.coverImage);
+        formData.append('coverImage', form.value.coverImage);
     }
 
     try {
