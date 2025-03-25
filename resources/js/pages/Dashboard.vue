@@ -2,7 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
+import PlaceholderPattern from '../components/template/PlaceholderPattern.vue';
 import CreateSite from '@/components/CreateSite.vue';
 import NewEventForm from '@/components/NewEventForm.vue';
 
