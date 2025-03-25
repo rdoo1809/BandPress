@@ -83,26 +83,33 @@ class RepoController
             'coverImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Handle image upload if present
         $imageUrl = null;
         if ($request->hasFile('coverImage')) {
             $image = $request->file('coverImage');
-            $imagePath = $image->store('releases', 'public');  // Store the image locally in 'releases' directory
+            $imagePath = $image->store('releases', 'public');
 
-            // Optionally, you can later implement the functionality to upload this image to GitHub if needed
             $imageUrl = asset('storage/' . $imagePath);
         }
 
-        $website->releases()->create([
+        $newRelease = $website->releases()->create([
             'host_link' => $validated['hostLink'],
             'cover_image' => $imageUrl,
             'band_site_id' => $user->id
             ]);
 
-        return response()->json([
-            'hostLink' => $validated['hostLink'],
-            'coverImage' => $imageUrl,
-            'band_site_id' => $user->id
+        $component = $this->deployUpdatedRelease([
+            'host_link' => $validated['hostLink'],
+            'cover_image' => $imageUrl,
         ]);
+
+        return response()->json([
+            'new_release' => $newRelease,
+            'component' => $component
+        ]);
+    }
+
+    public function deployUpdatedRelease(array $releaseData): array
+    {
+        return $this->gitHubService->addReleaseToReleasesComponent('rdoo1809', 'City-Ground', $releaseData);
     }
 }

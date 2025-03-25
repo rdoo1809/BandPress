@@ -100,4 +100,46 @@ class GitHubService
         return $response->json();
     }
 
+    public function addReleaseToReleasesComponent($repoOwner, $repoName, $releaseData): array
+    {
+        // Step 1: Fetch the Dates.vue content
+        $file = $this->getReleaseComponent('rdoo1809', 'City-Ground');
+        $content = $file['content'];
+        $sha = $file['sha'];
+
+        // Step 2: Define the new <Release /> component
+        $newRelease = "<Release :image=\"'{$releaseData['cover_image']}'\" link=\"{$releaseData['host_link']}\" />\n";
+
+        // Step 3: Insert before the closing </ul> tag
+        $pattern = '/(<\/ul>)/';
+        $replacement = "$newRelease$1";
+        $updatedContent = preg_replace($pattern, $replacement, $content, 1);
+
+        return [
+            'component_fetch' => $content,
+            'content' => $updatedContent
+        ];
+
+        // Step 4: Commit and push the updated file
+//        return $this->updateDatesComponent('rdoo1809', 'City-Ground', $updatedContent, $sha);
+    }
+
+    public function getReleaseComponent($repoOwner, $repoName, $filePath = 'src/components/CoverFlow.vue')
+    {
+        $url = "https://api.github.com/repos/{$repoOwner}/{$repoName}/contents/{$filePath}";
+
+        $response = Http::withToken($this->token)->get($url);
+
+        if ($response->failed()) {
+            throw new \Exception("Failed to fetch file: " . $response->body());
+        }
+
+        $fileData = $response->json();
+
+        return [
+            'content' => base64_decode($fileData['content']),
+            'sha' => $fileData['sha'],
+        ];
+    }
+
 }

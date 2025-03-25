@@ -32,7 +32,7 @@ const submitRelease = async () => {
 };
 
 const handleFileChange = (event: any) => {
-    form.value.coverImage = event.target.files[0]; // Get the file from the input
+    form.value.coverImage = event.target.files[0];
 };
 </script>
 
