@@ -15,6 +15,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 
 Route::post('/create-repo', [RepoController::class, 'createUserRepo'])->name('create-repo');
 Route::post('/new-event', [RepoController::class, 'createNewEvent'])->name('new-event');
+Route::post('/new-release', [RepoController::class, 'createNewRelease'])->name('new-release');
 
 Route::get('/hello', function () {
     return 'Hello, World!';

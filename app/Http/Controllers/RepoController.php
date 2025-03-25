@@ -70,4 +70,26 @@ class RepoController
     {
         return $this->gitHubService->addEventToDatesComponent('rdoo1809', 'City-Ground', $eventData);
     }
+
+    public function createNewRelease(Request $request): \Illuminate\Http\JsonResponse {
+        $user = Auth::user();
+        $website = $user->website;
+        if (!$website) return response()->json(['error' => 'No website found.']);
+
+//        $validated = $request->validate([
+//            'name' => 'required|string',
+//            'day' => 'required|string',
+//            'month' => 'required|string',
+//            'description' => 'required|string',
+//            'venue_link' => 'required|string',
+//        ]);
+//
+//        $website->events()->create($validated);
+//        $component = $this->deployUpdatedEvent($validated);
+//
+        return response()->json([
+            'key' => 'value',
+        ]);
+    }
+
 }

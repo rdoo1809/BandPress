@@ -6,6 +6,8 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/template/PlaceholderPattern.vue';
 import Events from '@/components/Events.vue';
+import Releases from '@/components/Releases.vue';
+import NewReleaseForm from '@/components/NewReleaseForm.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -44,16 +46,15 @@ defineProps({
                 </div>
             </div>
 
-            <div
-                class="relative grid min-h-[100vh] flex-1 auto-rows-min gap-4 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min md:grid-cols-3"
-            >
+            <div class="relative grid min-h-[100vh] flex-1 auto-rows-min gap-4 rounded-xl md:min-h-min md:grid-cols-3">
                 <div class="full-length-div-pattern">
                     <NewEventForm />
                     <Events :database-events="dbEvents"/>
                 </div>
 
                 <div class="full-length-div-pattern">
-                    <PlaceholderPattern />
+                    <NewReleaseForm />
+                    <Releases />
                 </div>
                 <div class="full-length-div-pattern">
                     <PlaceholderPattern />
