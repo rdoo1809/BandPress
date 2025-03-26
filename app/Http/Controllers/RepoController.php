@@ -24,7 +24,7 @@ class RepoController
         $user = Auth::user();
         $repoName = 'band-press-' . $user->email;
 
-        $response = $this->gitHubService->createRepoFromTemplate($repoName);
+        $response = $this->gitHubService->createRepoFromTemplate($repoName, $this->username);
 
         if (isset($response['repo_url'])) {
             $user->website()->create([
@@ -111,6 +111,6 @@ class RepoController
 
     public function deployUpdatedRelease(array $releaseData): array
     {
-        return $this->gitHubService->addReleaseToReleasesComponent('rdoo1809', 'City-Ground', $releaseData);
+        return $this->gitHubService->addReleaseToReleasesComponent($this->username, 'City-Ground', $releaseData);
     }
 }
