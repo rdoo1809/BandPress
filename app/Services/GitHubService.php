@@ -114,22 +114,12 @@ class GitHubService
         $sha = $file['sha'];
 
         // Step 2: Define the new <Release /> component
-        $newRelease = "<Release :image=\"'{$githubImagePath}'\" link=\"{$releaseData['host_link']}\" />\n";
+        $newRelease = "<Release image=\"/City-Ground/images/{$filename}\" link=\"{$releaseData['host_link']}\" />\n";
 
         // Step 3: Insert before the closing </ul> tag
         $pattern = '/(<\/ul>)/';
         $replacement = "$newRelease$1";
         $updatedContent = preg_replace($pattern, $replacement, $content, 1);
-//
-//        return [
-//            'image_upload_response' => [
-//                'image_response' => $imageUploadResponse,
-//                'image_path' => $imagePath,
-//                'cover_image' => $releaseData['cover_image'],
-//                ],
-//            'component_fetch' => $content,
-//            'content' => $updatedContent
-//        ];
 
         // Step 4: Commit and push the updated file
         return $this->updateCoverFlowComponent('rdoo1809', 'City-Ground', $updatedContent, $sha);
