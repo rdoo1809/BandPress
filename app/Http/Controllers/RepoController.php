@@ -25,7 +25,6 @@ class RepoController
         $response = $this->gitHubService->createRepoFromTemplate($repoName);
 
         if (isset($response['repo_url'])) {
-            //Store repo details in DB (assuming you have a `website` table)
             $user->website()->create([
                 'repo_url' => $response['repo_url'],
                 'deployment_url' => 'placeholder url',
