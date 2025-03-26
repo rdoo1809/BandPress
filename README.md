@@ -1,8 +1,8 @@
-BandPress
+# BandPress
 
 BandPress is a website builder designed specifically for local bands, enabling them to easily manage and update their websites without requiring coding knowledge.
 
-Tech Stack
+### Tech Stack
 
 Backend: Laravel
 
@@ -12,13 +12,13 @@ Build Tools: Vite
 
 Styling: Tailwind CSS
 
-Features
+## Features
 
 Event Management: Bands can add and update events through a form submission, which automatically updates their website.
 
 Release Management: Bands can upload new releases, including cover images and streaming links, which are reflected on their website.
 
-GitHub Integration:
+## GitHub Integration:
 
 Creates a new repository from a template upon website creation.
 
@@ -26,7 +26,7 @@ Commits and pushes updates (events, releases) directly to the band's repository.
 
 Deploys the website using GitHub Pages.
 
-Current Implementation
+## Current Implementation
 
 BandPress currently supports CityGround, allowing them to:
 
@@ -36,7 +36,7 @@ Have these changes automatically committed and pushed to their GitHub repository
 
 Deploy their site seamlessly through GitHub Pages.
 
-Future Enhancements
+## Future Enhancements
 
 Expanding to support multiple bands.
 
