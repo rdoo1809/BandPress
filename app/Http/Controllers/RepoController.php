@@ -11,10 +11,12 @@ use PhpParser\Node\Expr\Array_;
 class RepoController
 {
     protected $gitHubService;
+    protected $username;
 
     public function __construct(GitHubService $gitHubService)
     {
         $this->gitHubService = $gitHubService;
+        $this->username = env('GITHUB_USERNAME');
     }
 
     public function createUserRepo(Request $request): \Illuminate\Http\JsonResponse
@@ -68,7 +70,7 @@ class RepoController
 
     public function deployUpdatedEvent(array $eventData): array
     {
-        return $this->gitHubService->addEventToDatesComponent('rdoo1809', 'City-Ground', $eventData);
+        return $this->gitHubService->addEventToDatesComponent($this->username, 'City-Ground', $eventData);
     }
 
     public function createNewRelease(Request $request): \Illuminate\Http\JsonResponse
