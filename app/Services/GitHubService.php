@@ -9,13 +9,11 @@ use function Laravel\Prompts\error;
 class GitHubService
 {
     protected $token;
-    protected $username;
     protected $templateRepo;
 
     public function __construct()
     {
         $this->token = env('GITHUB_TOKEN');
-        $this->username = env('GITHUB_USERNAME');
         $this->templateRepo = env('GITHUB_TEMPLATE_REPO');
     }
 
