@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BandSite;
 use Illuminate\Http\Request;
 use App\Services\GitHubService;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\Array_;
 
 class RepoController
 {
@@ -22,6 +20,8 @@ class RepoController
     public function createUserRepo(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = Auth::user();
+
+        //Todo - repo name should be Band-Name-BandPress
         $repoName = 'band-press-' . $user->email;
 
         $response = $this->gitHubService->createRepoFromTemplate($repoName, $this->username);
