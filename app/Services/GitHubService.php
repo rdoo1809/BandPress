@@ -19,9 +19,9 @@ class GitHubService
         $this->templateRepo = env('GITHUB_TEMPLATE_REPO');
     }
 
-    public function createRepoFromTemplate($repoName): array
+    public function createRepoFromTemplate($repoName, $repoOwner): array
     {
-        $response = Http::withToken($this->token)->post("https://api.github.com/repos/{$this->username}/{$this->templateRepo}/generate", [
+        $response = Http::withToken($this->token)->post("https://api.github.com/repos/{$repoOwner}/{$this->templateRepo}/generate", [
             'name' => $repoName,
             'description' => "New BandPress repo from " . $this->templateRepo . " for " . $repoName,
         ]);
@@ -42,7 +42,7 @@ class GitHubService
     public function addEventToDatesComponent($repoOwner, $repoName, $eventData): array
     {
         // Step 1: Fetch the Dates.vue content
-        $file = $this->getDatesComponent($repoOwner, 'City-Ground');
+        $file = $this->getDatesComponent($repoOwner, 'City-Ground-BandPress');
         $content = $file['content'];
         $sha = $file['sha'];
 
@@ -56,7 +56,7 @@ class GitHubService
         $updatedContent = preg_replace($pattern, $replacement, $content, 1);
 
         // Step 4: Commit and push the updated file
-        return $this->updateDatesComponent($repoOwner, 'City-Ground', $updatedContent, $sha);
+        return $this->updateDatesComponent($repoOwner, 'City-Ground-BandPress', $updatedContent, $sha);
     }
 
     public function getDatesComponent($repoOwner, $repoName, $filePath = 'src/components/Dates.vue')
@@ -79,7 +79,7 @@ class GitHubService
 
     public function updateDatesComponent($repoOwner, $repoName, $updatedContent, $sha, $filePath = 'src/components/Dates.vue')
     {
-        $url = "https://api.github.com/repos/{$repoOwner}/City-Ground/contents/{$filePath}";
+        $url = "https://api.github.com/repos/{$repoOwner}/City-Ground-BandPress/contents/{$filePath}";
 
         $response = Http::withToken($this->token)->put($url, [
             'message' => 'Added new event to Dates.vue',
@@ -100,15 +100,15 @@ class GitHubService
         $filename = basename($releaseData['cover_image']);
         $imagePath = storage_path("app/public/releases/{$filename}");
         $githubImagePath = "public/images/{$filename}"; // Destination in GitHub repo
-        $imageUploadResponse = $this->uploadImageToGitHub('rdoo1809', 'City-Ground', $imagePath, $githubImagePath);
+        $imageUploadResponse = $this->uploadImageToGitHub($repoOwner, 'City-Ground-BandPress', $imagePath, $githubImagePath);
 
         // Step 1: Fetch the Dates.vue content
-        $file = $this->getReleaseComponent('rdoo1809', 'City-Ground');
+        $file = $this->getReleaseComponent($repoOwner, 'City-Ground-BandPress');
         $content = $file['content'];
         $sha = $file['sha'];
 
         // Step 2: Define the new <Release /> component
-        $newRelease = "<Release image=\"/City-Ground/images/{$filename}\" link=\"{$releaseData['host_link']}\" />\n";
+        $newRelease = "<Release image=\"/City-Ground-BandPress/images/{$filename}\" link=\"{$releaseData['host_link']}\" />\n";
 
         // Step 3: Insert before the closing </ul> tag
         $pattern = '/(<\/ul>)/';
@@ -116,7 +116,7 @@ class GitHubService
         $updatedContent = preg_replace($pattern, $replacement, $content, 1);
 
         // Step 4: Commit and push the updated file
-        return $this->updateCoverFlowComponent('rdoo1809', 'City-Ground', $updatedContent, $sha);
+        return $this->updateCoverFlowComponent($repoOwner, 'City-Ground-BandPress', $updatedContent, $sha);
     }
 
     public function getReleaseComponent($repoOwner, $repoName, $filePath = 'src/components/CoverFlow.vue')
@@ -139,7 +139,7 @@ class GitHubService
 
     public function updateCoverFlowComponent($repoOwner, $repoName, $updatedContent, $sha, $filePath = 'src/components/CoverFlow.vue')
     {
-        $url = "https://api.github.com/repos/rdoo1809/City-Ground/contents/{$filePath}";
+        $url = "https://api.github.com/repos/{$repoOwner}/City-Ground-BandPress/contents/{$filePath}";
 
         $response = Http::withToken($this->token)->put($url, [
             'message' => 'Added new Release to CoverFlow.vue',
@@ -156,7 +156,7 @@ class GitHubService
 
     public function uploadImageToGitHub($repoOwner, $repoName, $localFilePath, $githubFilePath)
     {
-        $githubApiUrl = "https://api.github.com/repos/rdoo1809/City-Ground/contents/{$githubFilePath}";
+        $githubApiUrl = "https://api.github.com/repos/{$repoOwner}/City-Ground-BandPress/contents/{$githubFilePath}";
 
         if (!file_exists($localFilePath)) {
             return ['error' => 'File not found'];
