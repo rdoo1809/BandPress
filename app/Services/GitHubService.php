@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use function Laravel\Prompts\error;
@@ -45,19 +46,53 @@ class GitHubService
         $sha = $file['sha'];
 
         // Step 2: Define the new component
-        $newEvent = "<Event title=\"{$eventData['name']}\" description=\"{$eventData['description']}\"
-  month=\"{$eventData['month']}\" day=\"{$eventData['day']}\" link=\"{$eventData['venue_link']}\" />\n";
+//        $newEvent = "<Event title=\"{$eventData['name']}\" description=\"{$eventData['description']}\"
+//  month=\"{$eventData['month']}\" day=\"{$eventData['day']}\" link=\"{$eventData['venue_link']}\" />\n";
+
+        $newEvent = "{\n" .
+            "    title: \"{$eventData['name']}\",\n" .
+            "    description: \"{$eventData['description']}\",\n" .
+            "    month: \"{$eventData['month']}\",\n" .
+            "    day: \"{$eventData['day']}\",\n" .
+            "    link: \"{$eventData['venue_link']}\"\n" .
+            "  }";
+
+//        return $file;
 
         // Step 3: Insert before the closing </div> tag
-        $pattern = '/(<\/div>)/';
-        $replacement = "$newEvent$1";
-        $updatedContent = preg_replace($pattern, $replacement, $content, 1);
+//        $pattern = '/(<\/div>)/';
+//        $replacement = "$newEvent$1";
+//        $updatedContent = preg_replace($pattern, $replacement, $content, 1);
+
+        $pattern = '/const events = ref\(\[([\s\S]*?)\]\)/';
+        if (preg_match($pattern, $content, $matches)) {
+            $existingEvents = $matches[1]; // The content inside the array
+
+            // Check if the array is empty or already has items
+            if (trim($existingEvents) === '') {
+                // Empty array, just add the new event
+                $updatedEvents = "\n  " . $newEvent . "\n";
+            } else {
+                // Non-empty array, append with a comma and new event
+                $updatedEvents = $existingEvents . ",\n  " . $newEvent . "\n";
+            }
+
+            // Replace the old array content with the updated one
+            $updatedContent = preg_replace(
+                $pattern,
+                "const events = ref([\n  " . $updatedEvents . "])",
+                $content,
+                1
+            );
+        } else {
+            throw new Exception("Could not find events array in Dates.vue");
+        }
 
         // Step 4: Commit and push the updated file
         return $this->updateDatesComponent($repoOwner, 'City-Ground-BandPress', $updatedContent, $sha);
     }
 
-    public function getDatesComponent($repoOwner, $repoName, $filePath = 'src/components/Dates.vue')
+    public function getDatesComponent($repoOwner, $repoName, $filePath = 'src/components/Pills.vue')
     {
         $url = "https://api.github.com/repos/{$repoOwner}/{$repoName}/contents/{$filePath}";
 
@@ -75,18 +110,18 @@ class GitHubService
         ];
     }
 
-    public function updateDatesComponent($repoOwner, $repoName, $updatedContent, $sha, $filePath = 'src/components/Dates.vue')
+    public function updateDatesComponent($repoOwner, $repoName, $updatedContent, $sha, $filePath = 'src/components/Pills.vue')
     {
         $url = "https://api.github.com/repos/{$repoOwner}/City-Ground-BandPress/contents/{$filePath}";
 
         $response = Http::withToken($this->token)->put($url, [
-            'message' => 'Added new event to Dates.vue',
+            'message' => 'Added new event to Pills.vue',
             'content' => base64_encode($updatedContent),
             'sha' => $sha,
         ]);
 
         if ($response->failed()) {
-            return ['error' => 'Failed to update Dates.vue: ' . $response->body()];
+            return ['error' => 'Failed to update Pills.vue: ' . $response->body()];
         }
 
         return $response->json();
