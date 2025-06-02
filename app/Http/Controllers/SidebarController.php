@@ -31,10 +31,11 @@ class SidebarController
     {
         $user = Auth::user();
         $bandName = $user->name;
-
+        $contents = $user->website->siteContent;
 
         return Inertia::render('Builder', [
             'bandName' => $bandName,
+            'contents' => $contents,
         ]);
     }
 }

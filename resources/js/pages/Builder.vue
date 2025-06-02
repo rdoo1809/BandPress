@@ -13,6 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const props = defineProps({
     bandName: String,
+    contents: Object,
 });
 
 const fileFormatter = (file: any) => {
@@ -45,8 +46,13 @@ const uploadLogo = async (e: any) => {
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <h1>Upload your logo to get started!</h1>
-        <input type="file" @change="uploadLogo" />
+        <div v-if="!props.contents?.logo">
+            <h1>Upload your logo to get started!</h1>
+            <input type="file" @change="uploadLogo" />
+        </div>
+        <div v-else>
+            <img :src="`/storage/${props.contents?.logo}`"  alt="Band Logo"/>
+        </div>
     </AppLayout>
 </template>
 
