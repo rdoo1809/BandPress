@@ -2,6 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
+import axios from 'axios';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,10 +29,14 @@ const uploadLogo = async (e: any) => {
     const formData = new FormData();
     formData.append('logo', renamedFile);
 
-    // const res = await axios.post(route('stash-logo'), formData);
-    // console.log(formData);
-    for (const [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
+    try {
+        await axios.post(route('stash-logo'), formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    } catch (error: any) {
+        console.error('Upload error:', error.response?.data || error.message);
     }
 };
 </script>
