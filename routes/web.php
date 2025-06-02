@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuilderController;
 use App\Http\Controllers\RepoController;
 use App\Http\Controllers\SidebarController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,12 @@ Route::get('builder', [SidebarController::class, 'builder'])
 Route::post('/create-repo', [RepoController::class, 'createUserRepo'])->name('create-repo');
 Route::post('/new-event', [RepoController::class, 'createNewEvent'])->name('new-event');
 Route::post('/new-release', [RepoController::class, 'createNewRelease'])->name('new-release');
+
+
+Route::post('/stash-logo', [BuilderController::class, 'stashLogo'])->name('stash-logo');
+
+
+
 
 Route::get('/hello', function () {
     return 'Hello, World!';

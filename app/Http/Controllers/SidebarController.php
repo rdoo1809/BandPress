@@ -29,6 +29,12 @@ class SidebarController
 
     public function builder(): \Inertia\Response
     {
-        return Inertia::render('Builder', []);
+        $user = Auth::user();
+        $bandName = $user->name;
+
+
+        return Inertia::render('Builder', [
+            'bandName' => $bandName,
+        ]);
     }
 }
