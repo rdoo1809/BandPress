@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class DashboardController
+class SidebarController
 {
-    public function index(): \Inertia\Response
+    public function dashboard(): \Inertia\Response
     {
         $user = Auth::user();
 
@@ -25,5 +25,10 @@ class DashboardController
             'dbEvents' => $dbEvents,
             'dbReleases' => $dbReleases,
         ]);
+    }
+
+    public function builder(): \Inertia\Response
+    {
+        return Inertia::render('Builder', []);
     }
 }
