@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Instrument Sans', ...defaultTheme.fontFamily.sans],
+                'saira': ['Saira Condensed', 'sans-serif'],
             },
             borderRadius: {
                 lg: 'var(--radius)',
@@ -20,6 +21,13 @@ export default {
                 sm: 'calc(var(--radius) - 4px)',
             },
             colors: {
+                // Figma Design Tokens
+                'figma-black': 'hsl(var(--figma-black))',
+                'figma-soft-grey': 'hsl(var(--figma-soft-grey))',
+                'figma-red': 'hsl(var(--figma-red))',
+                'figma-bright-red': 'hsl(var(--figma-bright-red))',
+                'figma-dark-grey': 'hsl(var(--figma-dark-grey))',
+
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {

@@ -2,7 +2,6 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import axios from 'axios';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -10,50 +9,26 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/builder',
     },
 ];
-
-const props = defineProps({
-    bandName: String,
-    contents: Object,
-});
-
-const fileFormatter = (file: any) => {
-    const rawBandName = props.bandName;
-    const sanitizedBandName = rawBandName?.replace(/\s+/g, '_');
-    const extension = file.name.split('.').pop();
-    const customName = `${sanitizedBandName}_logo.${extension}`;
-    return new File([file], customName, { type: file.type });
-};
-
-const uploadLogo = async (e: any) => {
-    const file = e.target.files[0];
-    const renamedFile = fileFormatter(file);
-    const formData = new FormData();
-    formData.append('logo', renamedFile);
-
-    try {
-        await axios.post(route('stash-logo'), formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-    } catch (error: any) {
-        console.error('Upload error:', error.response?.data || error.message);
-    }
-};
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Builder" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div v-if="!props.contents?.logo">
-            <h1>Upload your logo to get started!</h1>
-            <input type="file" @change="uploadLogo" />
-        </div>
-        <div v-else>
-            <img :src="`/storage/${props.contents?.logo}`"  alt="Band Logo"/>
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div class="flex h-full items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600">
+                <div class="text-center">
+                    <div class="mx-auto h-12 w-12 text-gray-400">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-white">Builder Coming Soon</h3>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        The website builder functionality is under development.
+                    </p>
+                </div>
+            </div>
         </div>
     </AppLayout>
 </template>
-
-<style></style>

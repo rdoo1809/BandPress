@@ -1,133 +1,152 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import { Instagram, Twitter, Facebook } from 'lucide-vue-next';
 </script>
 
 <template>
-    <Head title="Welcome">
+    <Head title="BandPress - Increase Your Online Presence">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700&display=swap" rel="stylesheet" />
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] dark:bg-[#0a0a0a] lg:justify-center lg:p-8">
-        <header class="not-has-[nav]:hidden mb-6 w-full max-w-[335px] text-sm lg:max-w-4xl">
-            <nav class="flex items-center justify-end gap-4">
-                <Link
-                    v-if="$page.props.auth.user"
-                    :href="route('dashboard')"
-                    class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                >
-                    Dashboard
-                </Link>
-                <template v-else>
+
+    <div class="min-h-screen bg-white text-figma-black">
+        <!-- Hero Section -->
+        <div class="relative h-[571px] w-full overflow-hidden">
+            <!-- Background Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-black to-gray-800"></div>
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-50"
+                 style="background-image: url('/bp_splash.png');"></div>
+
+
+            <!-- Header Navigation -->
+            <header class="absolute top-8 left-0 right-0 z-20 flex items-center justify-between px-8">
+                <!-- Left Side: Logo + Brand -->
+                <div class="flex items-center space-x-4">
+                    <img src="/bp_logo.png" alt="BandPress Logo" class="w-16 h-16 object-contain" />
+                    <span class="text-white text-2xl font-bold uppercase tracking-wider font-saira">
+                        BandPress
+                    </span>
+                </div>
+
+                <!-- Right Side: Navigation + Sign In -->
+                <div class="flex items-center space-x-8">
+                    <nav class="flex items-center space-x-8">
+                        <Link href="/" class="text-white hover:text-gray-200 transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Home
+                        </Link>
+                        <Link href="#about" class="text-white hover:text-gray-200 transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            About
+                        </Link>
+                        <Link href="#clients" class="text-white hover:text-gray-200 transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Clients
+                        </Link>
+                        <Link href="#contact" class="text-white hover:text-gray-200 transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Contact
+                        </Link>
+                    </nav>
+
                     <Link
-                        :href="route('login')"
-                        class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                        v-if="$page.props.auth.user"
+                        :href="route('dashboard')"
+                        class="bg-figma-red text-white px-6 py-2 rounded hover:bg-figma-bright-red transition-colors font-bold uppercase tracking-wider font-saira"
                     >
-                        Log in
+                        Dashboard
                     </Link>
+                    <Link
+                        v-else
+                        :href="route('login')"
+                        class="bg-figma-red text-white px-6 py-2 rounded hover:bg-figma-bright-red transition-colors font-bold uppercase tracking-wider font-saira"
+                    >
+                        Sign In
+                    </Link>
+                </div>
+            </header>
+        </div>
+
+        <!-- Mid Section -->
+        <div class="py-16 px-8 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <!-- Top Row: Image, Red Line, Heading -->
+                <div class="flex items-start justify-between mb-12">
+                    <!-- Left: Image Section (Rectangle 3) -->
+                    <div class="flex-shrink-0">
+                        <div class="w-[550px] h-[415px] bg-gray-200 rounded-lg flex items-center justify-center opacity-80">
+                            <img src="/bp_logo.png" alt="BandPress Logo" class="w-32 h-32 object-contain" />
+                        </div>
+                    </div>
+
+                    <!-- Middle: Red Line (Rectangle 4) -->
+                    <div class="flex-shrink-0 mx-8">
+                        <div class="w-2 h-[198px] bg-figma-red"></div>
+                    </div>
+
+                    <!-- Right: Main Heading -->
+                    <div class="flex-1">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-figma-black leading-tight">
+                            We Increase your online presence, to help your stage presence
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Bottom: Lorem Text -->
+                <div class="max-w-2xl mx-auto text-center mb-8">
+                    <p class="text-xl text-figma-dark-grey leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis, purus nec euismod tristique, ex purus fermentum magna, eu gravida nulla dolor non felis. Aenean diam risus, luctus tincidunt tortor vel, finibus sollicitudin lorem. Nullam magna mi, dictum sit amet fermentum eget, interdum ac neque.
+                    </p>
+                </div>
+
+                <!-- Bottom: Sign UP Button -->
+                <div class="text-center">
                     <Link
                         :href="route('register')"
-                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                        class="bg-figma-red text-white px-6 py-2 rounded hover:bg-figma-bright-red transition-colors font-bold uppercase tracking-wider font-saira"
                     >
-                        Register
+                        Sign UP
                     </Link>
-                </template>
-            </nav>
-        </header>
-        <div class="duration-750 starting:opacity-0 flex w-full items-center justify-center opacity-100 transition-opacity lg:grow">
-            <main class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
-                <div
-                    class="flex-1 rounded-bl-lg rounded-br-lg bg-white p-6 pb-12 text-[13px] leading-[20px] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] lg:rounded-br-none lg:rounded-tl-lg lg:p-20"
-                >
-                    <h1 class="mb-1 font-medium">Let's get started</h1>
-                    <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        As a musician, you shouldnt have to worry about maintaining a good online presence. <br />Let BandPress handle it for you!
-                    </p>
-                    <ul class="mb-4 flex flex-col lg:mb-6">
-                        <li
-                            class="relative flex items-center gap-4 py-2 before:absolute before:bottom-0 before:left-[0.4rem] before:top-1/2 before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]"
-                        >
-                            <span class="relative bg-white py-1 dark:bg-[#161615]">
-                                <span
-                                    class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#e3e3e0] bg-[#FDFDFC] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] dark:border-[#3E3E3A] dark:bg-[#161615]"
-                                >
-                                    <span class="h-1.5 w-1.5 rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A]" />
-                                </span>
-                            </span>
-                            <span>
-                                View Our
-                                <a
-                                    href="https://laravel.com/docs"
-                                    target="_blank"
-                                    class="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
-                                >
-                                    <span>Clients</span>
-                                    <svg
-                                        width="{10}"
-                                        height="{11}"
-                                        viewBox="0 0 10 11"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-2.5 w-2.5"
-                                    >
-                                        <path d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001" stroke="currentColor" stroke-linecap="square" />
-                                    </svg>
-                                </a>
-                            </span>
-                        </li>
-                        <li
-                            class="relative flex items-center gap-4 py-2 before:absolute before:bottom-1/2 before:left-[0.4rem] before:top-0 before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]"
-                        >
-                            <span class="relative bg-white py-1 dark:bg-[#161615]">
-                                <span
-                                    class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#e3e3e0] bg-[#FDFDFC] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] dark:border-[#3E3E3A] dark:bg-[#161615]"
-                                >
-                                    <span class="h-1.5 w-1.5 rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A]" />
-                                </span>
-                            </span>
-                            <span>
-                                Learn about how we can help you expand you online
-                                <a
-                                    href="https://laracasts.com"
-                                    target="_blank"
-                                    class="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
-                                >
-                                    <span>Presence</span>
-                                    <svg
-                                        width="{10}"
-                                        height="{11}"
-                                        viewBox="0 0 10 11"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-2.5 w-2.5"
-                                    >
-                                        <path d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001" stroke="currentColor" stroke-linecap="square" />
-                                    </svg>
-                                </a>
-                            </span>
-                        </li>
-                    </ul>
-                    <ul class="flex gap-3 text-sm leading-normal">
-                        <li>
-                            <a
-                                href="https://cloud.laravel.com"
-                                target="_blank"
-                                class="inline-block rounded-sm border border-black bg-[#1b1b18] px-5 py-1.5 text-sm leading-normal text-white hover:border-black hover:bg-black dark:border-[#eeeeec] dark:bg-[#eeeeec] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
-                            >
-                                Visit Home Page
-                            </a>
-                        </li>
-                    </ul>
                 </div>
-                <div
-                    class="relative -mb-px aspect-[335/376] w-full shrink-0 overflow-hidden rounded-t-lg bg-[#fff2f2] dark:bg-[#1D0002] lg:-ml-px lg:mb-0 lg:aspect-auto lg:w-[438px] lg:rounded-r-lg lg:rounded-t-none"
-                >
-                    <img src="../../../public/bp_splash.png" height="1024" width="1024" />
-                    <div
-                        class="absolute inset-0 rounded-t-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] lg:overflow-hidden lg:rounded-r-lg lg:rounded-t-none"
-                    />
-                </div>
-            </main>
+            </div>
         </div>
-        <div class="h-14.5 hidden lg:block"></div>
+
+        <!-- Footer -->
+        <footer class="py-8 px-8 bg-figma-black">
+            <div class="max-w-6xl mx-auto flex items-center justify-between">
+                <!-- Left Side: Logo + Brand -->
+                <div class="flex items-center space-x-4">
+                    <img src="/bp_logo.png" alt="BandPress Logo" class="w-16 h-16 object-contain" />
+                    <span class="text-white text-2xl font-bold uppercase tracking-wider font-saira">
+                        BandPress
+                    </span>
+                </div>
+
+                <!-- Right Side: Links + Social -->
+                <div class="flex items-center space-x-8">
+                    <nav class="flex items-center space-x-8">
+                        <Link href="#" class="text-figma-soft-grey hover:text-white transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Terms & Conditions
+                        </Link>
+                        <Link href="#" class="text-figma-soft-grey hover:text-white transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Privacy Policy
+                        </Link>
+                    </nav>
+
+                    <!-- Social Media Icons -->
+                    <div class="flex items-center space-x-4">
+                        <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                            <Facebook class="w-5 h-5 text-figma-dark-grey" />
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                            <Twitter class="w-5 h-5 text-figma-dark-grey" />
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                            <Instagram class="w-5 h-5 text-figma-dark-grey" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </template>

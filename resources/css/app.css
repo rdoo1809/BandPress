@@ -10,6 +10,13 @@ html {
 
 @layer base {
     :root {
+        /* Figma Design Tokens */
+        --figma-black: 0 0% 0%;
+        --figma-soft-grey: 0 0% 85%;
+        --figma-red: 0 100% 50%;
+        --figma-bright-red: 0 100% 49%;
+        --figma-dark-grey: 0 0% 35%;
+
         --background: 0 0% 100%;
         --foreground: 0 0% 3.9%;
         --card: 0 0% 100%;
