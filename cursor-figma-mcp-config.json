@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "figma-design-server": {
+      "command": "node",
+      "args": ["/Users/ryandooley/GitHub/band-press/mcp-figma-server/dist/index.js"],
+      "cwd": "/Users/ryandooley/GitHub/band-press/mcp-figma-server",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
