@@ -67,11 +67,16 @@ import { Instagram, Twitter, Facebook } from 'lucide-vue-next';
             </header>
         </div>
 
+        <!-- Diagonal Gradient Transition -->
+        <div class="relative h-32 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-600 to-white transform -skew-y-3"></div>
+        </div>
+
         <!-- Mid Section -->
-        <div class="py-16 px-8 bg-white">
+        <div class="py-16 px-8 bg-white relative -mt-32">
             <div class="max-w-6xl mx-auto">
-                <!-- Top Row: Image, Red Line, Heading -->
-                <div class="flex items-start justify-between mb-12">
+                <!-- Top Row: Image + Red Line with Centered Heading -->
+                <div class="flex items-start mb-12">
                     <!-- Left: Image Section (Rectangle 3) -->
                     <div class="flex-shrink-0">
                         <div class="w-[550px] h-[415px] bg-gray-200 rounded-lg flex items-center justify-center opacity-80">
@@ -79,15 +84,14 @@ import { Instagram, Twitter, Facebook } from 'lucide-vue-next';
                         </div>
                     </div>
 
-                    <!-- Middle: Red Line (Rectangle 4) -->
-                    <div class="flex-shrink-0 mx-8">
-                        <div class="w-2 h-[198px] bg-figma-red"></div>
-                    </div>
+                    <!-- Right: Red Line + Centered Heading -->
+                    <div class="ml-8 flex items-center">
+                        <!-- Red Line (Rectangle 4) - Full Image Height -->
+                        <div class="w-2 h-[415px] bg-figma-red flex-shrink-0"></div>
 
-                    <!-- Right: Main Heading -->
-                    <div class="flex-1">
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-figma-black leading-tight">
-                            We Increase your online presence, to help your stage presence
+                        <!-- Main Heading - Vertically Centered on Red Line -->
+                        <h1 class="ml-4 text-4xl md:text-5xl lg:text-6xl font-bold text-figma-black leading-tight uppercase">
+                            WE INCREASE YOUR ONLINE PRESENCE, TO HELP YOUR STAGE PRESENCE
                         </h1>
                     </div>
                 </div>
@@ -113,27 +117,18 @@ import { Instagram, Twitter, Facebook } from 'lucide-vue-next';
 
         <!-- Footer -->
         <footer class="py-8 px-8 bg-figma-black">
-            <div class="max-w-6xl mx-auto flex items-center justify-between">
-                <!-- Left Side: Logo + Brand -->
-                <div class="flex items-center space-x-4">
-                    <img src="/bp_logo.png" alt="BandPress Logo" class="w-16 h-16 object-contain" />
-                    <span class="text-white text-2xl font-bold uppercase tracking-wider font-saira">
-                        BandPress
-                    </span>
-                </div>
+            <div class="max-w-6xl mx-auto">
+                <!-- Main Footer Row -->
+                <div class="flex items-center justify-between mb-8">
+                    <!-- Left Side: Logo + Brand -->
+                    <div class="flex items-center space-x-4">
+                        <img src="/bp_logo.png" alt="BandPress Logo" class="w-16 h-16 object-contain" />
+                        <span class="text-white text-2xl font-bold uppercase tracking-wider font-saira">
+                            BandPress
+                        </span>
+                    </div>
 
-                <!-- Right Side: Links + Social -->
-                <div class="flex items-center space-x-8">
-                    <nav class="flex items-center space-x-8">
-                        <Link href="#" class="text-figma-soft-grey hover:text-white transition-colors text-lg font-bold uppercase tracking-wider font-saira">
-                            Terms & Conditions
-                        </Link>
-                        <Link href="#" class="text-figma-soft-grey hover:text-white transition-colors text-lg font-bold uppercase tracking-wider font-saira">
-                            Privacy Policy
-                        </Link>
-                    </nav>
-
-                    <!-- Social Media Icons -->
+                    <!-- Right Side: Social Media Icons -->
                     <div class="flex items-center space-x-4">
                         <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
                             <Facebook class="w-5 h-5 text-figma-dark-grey" />
@@ -144,6 +139,18 @@ import { Instagram, Twitter, Facebook } from 'lucide-vue-next';
                         <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
                             <Instagram class="w-5 h-5 text-figma-dark-grey" />
                         </a>
+                    </div>
+                </div>
+
+                <!-- Centered Terms & Privacy Row - Below All Other Elements -->
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-8 text-figma-soft-grey">
+                        <Link href="#" class="hover:text-white transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Terms & Conditions
+                        </Link>
+                        <Link href="#" class="hover:text-white transition-colors text-lg font-bold uppercase tracking-wider font-saira">
+                            Privacy Policy
+                        </Link>
                     </div>
                 </div>
             </div>

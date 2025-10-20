@@ -31,11 +31,16 @@ class SidebarController
     {
         $user = Auth::user();
         $bandName = $user->name;
-        $contents = $user->website->siteContent;
+
+        $hasWebsite = $user->website()->exists();
+        $liveUrl = $hasWebsite ? $user->website->live_url : null;
+        $contents = $hasWebsite ? $user->website->siteContent : null;
 
         return Inertia::render('Builder', [
             'bandName' => $bandName,
             'contents' => $contents,
+            'hasWebsite' => $hasWebsite,
+            'liveUrl' => $liveUrl,
         ]);
     }
 }

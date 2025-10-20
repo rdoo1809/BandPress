@@ -3,8 +3,7 @@ import CreateSite from '@/components/CreateSite.vue';
 import NewEventForm from '@/components/NewEventForm.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/template/PlaceholderPattern.vue';
+import { Head, Link } from '@inertiajs/vue3';
 import Events from '@/components/Events.vue';
 import Releases from '@/components/Releases.vue';
 import NewReleaseForm from '@/components/NewReleaseForm.vue';
@@ -29,49 +28,43 @@ defineProps({
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div v-if="!hasWebsite" class="div-pattern flex items-center justify-center">
+        <div class="flex h-full flex-1 flex-col gap-6 p-4">
+            <!-- Site Status / Create Site Section -->
+            <div class="grid auto-rows-min gap-4 md:grid-cols-1 max-w-md">
+                <div v-if="!hasWebsite" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md flex items-center justify-center">
                     <CreateSite />
                 </div>
-                <div v-else class="div-pattern flex flex-col items-center justify-center">
-                    <h1>Your site is live!</h1>
-                    <a :href="liveUrl" target="_blank" class="hover:text-blue-600">{{ liveUrl }}</a>
-                </div>
+                <div v-else class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md flex flex-col items-center justify-center">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 font-saira uppercase tracking-wider">
+                        Your site is live at:
+                    </h1>
+                    <a :href="liveUrl" target="_blank" class="text-blue-600 hover:text-blue-700 underline text-lg mb-4">{{ liveUrl }}</a>
 
-                <div class="div-pattern">
-                    <PlaceholderPattern />
-                </div>
-                <div class="div-pattern">
-                    <PlaceholderPattern />
+                    <!-- Quick Action Buttons -->
+                    <div class="space-y-3">
+                        <Link href="/builder" class="block w-full text-center px-4 py-3 bg-figma-red text-white font-bold rounded-lg uppercase tracking-wider font-saira hover:bg-red-700 transition-colors">
+                            Open Builder
+                        </Link>
+                        <button class="block w-full px-4 py-2 bg-gray-600 text-white font-saira uppercase tracking-wider rounded-lg hover:bg-gray-700 transition-colors">
+                            View Site
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="relative grid min-h-[100vh] flex-1 auto-rows-min gap-4 rounded-xl md:min-h-min md:grid-cols-3">
-                <div class="full-length-div-pattern">
+            <!-- Event Management Section (Keep on Dashboard) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
                     <NewEventForm />
                     <Events :database-events="dbEvents"/>
                 </div>
 
-                <div class="full-length-div-pattern">
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
                     <NewReleaseForm />
                     <Releases :database-releases="dbReleases"/>
-                </div>
-
-                <div class="full-length-div-pattern">
-                    <PlaceholderPattern />
                 </div>
             </div>
         </div>
     </AppLayout>
 </template>
 
-<style>
-.div-pattern {
-    @apply relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border;
-}
-
-.full-length-div-pattern {
-    @apply relative min-h-[100vh] rounded-xl border border-sidebar-border/70 dark:border-sidebar-border;
-}
-</style>

@@ -34,7 +34,7 @@ const submitEvent = async () => {
         <!-- Toggle Button -->
         <button
             @click="toggleForm"
-            class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-offset-gray-800"
+            class="w-full px-4 py-2 bg-figma-red text-white font-bold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-figma-red focus:ring-offset-2 dark:bg-figma-red dark:hover:bg-red-600 dark:focus:ring-offset-gray-800 font-saira uppercase tracking-wider"
         >
             {{ showForm ? "Hide Form" : "Add Event" }}
         </button>
@@ -45,61 +45,61 @@ const submitEvent = async () => {
                   class="mt-4 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md space-y-6">
 
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 font-saira uppercase tracking-wider">Name</label>
                     <input
                         v-model="form.name"
                         type="text"
                         id="name"
                         required
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-figma-red focus:border-figma-red bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         placeholder="Event Name"
                     />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="day" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Day</label>
+                        <label for="day" class="block text-sm font-medium text-gray-700 dark:text-gray-300 font-saira uppercase tracking-wider">Day</label>
                         <input
                             v-model="form.day"
                             type="text"
                             id="day"
                             required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-figma-red focus:border-figma-red bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                             placeholder="e.g., 15"
                         />
                     </div>
 
                     <div>
-                        <label for="month" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Month</label>
+                        <label for="month" class="block text-sm font-medium text-gray-700 dark:text-gray-300 font-saira uppercase tracking-wider">Month</label>
                         <input
                             v-model="form.month"
                             type="text"
                             id="month"
                             required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-figma-red focus:border-figma-red bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                             placeholder="e.g., March"
                         />
                     </div>
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                    <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 font-saira uppercase tracking-wider">Description</label>
                     <textarea
                         v-model="form.description"
                         id="description"
                         rows="4"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-figma-red focus:border-figma-red bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         placeholder="Event details..."
                     ></textarea>
                 </div>
 
                 <div>
-                    <label for="venueLink" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Venue Link</label>
+                    <label for="venueLink" class="block text-sm font-medium text-gray-700 dark:text-gray-300 font-saira uppercase tracking-wider">Location</label>
                     <input
                         v-model="form.venue_link"
                         type="url"
                         id="venueLink"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-figma-red focus:border-figma-red bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         placeholder="https://venue.com"
                     />
                 </div>
@@ -107,9 +107,9 @@ const submitEvent = async () => {
                 <div>
                     <button
                         type="submit"
-                        class="w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600"
+                        class="w-full px-4 py-2 bg-figma-red text-white font-bold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-figma-red focus:ring-offset-2 dark:bg-figma-red dark:hover:bg-red-600 font-saira uppercase tracking-wider"
                     >
-                        Submit Event
+                        Upload
                     </button>
                 </div>
             </form>
