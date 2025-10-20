@@ -106,10 +106,10 @@ import { Instagram, Twitter, Facebook } from 'lucide-vue-next';
                 <!-- Bottom: Sign UP Button -->
                 <div class="text-center">
                     <Link
-                        :href="route('register')"
+                        :href="route('login')"
                         class="bg-figma-red text-white px-6 py-2 rounded hover:bg-figma-bright-red transition-colors font-bold uppercase tracking-wider font-saira"
                     >
-                        Sign UP
+                        Sign IN
                     </Link>
                 </div>
             </div>
