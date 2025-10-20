@@ -8,6 +8,7 @@
 /storage/pail
 /vendor
 /mcp-figma-server/node_modules
+/mcp-figma-server/config.env
 .env
 .env.backup
 .env.production
