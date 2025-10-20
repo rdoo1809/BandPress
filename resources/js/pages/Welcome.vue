@@ -40,7 +40,7 @@ import { Head, Link } from '@inertiajs/vue3';
                 >
                     <h1 class="mb-1 font-medium">Let's get started</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Laravel has an incredibly rich ecosystem. <br />We suggest starting with the following.
+                        As a musician, you shouldnt have to worry about maintaining a good online presence. <br />Let BandPress handle it for you!
                     </p>
                     <ul class="mb-4 flex flex-col lg:mb-6">
                         <li
@@ -54,13 +54,13 @@ import { Head, Link } from '@inertiajs/vue3';
                                 </span>
                             </span>
                             <span>
-                                Read the
+                                View Our
                                 <a
                                     href="https://laravel.com/docs"
                                     target="_blank"
                                     class="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
                                 >
-                                    <span>Documentation</span>
+                                    <span>Clients</span>
                                     <svg
                                         width="{10}"
                                         height="{11}"
@@ -85,13 +85,13 @@ import { Head, Link } from '@inertiajs/vue3';
                                 </span>
                             </span>
                             <span>
-                                Watch video tutorials at
+                                Learn about how we can help you expand you online
                                 <a
                                     href="https://laracasts.com"
                                     target="_blank"
                                     class="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
                                 >
-                                    <span>Laracasts</span>
+                                    <span>Presence</span>
                                     <svg
                                         width="{10}"
                                         height="{11}"
@@ -113,7 +113,7 @@ import { Head, Link } from '@inertiajs/vue3';
                                 target="_blank"
                                 class="inline-block rounded-sm border border-black bg-[#1b1b18] px-5 py-1.5 text-sm leading-normal text-white hover:border-black hover:bg-black dark:border-[#eeeeec] dark:bg-[#eeeeec] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
                             >
-                                Deploy now
+                                Visit Home Page
                             </a>
                         </li>
                     </ul>

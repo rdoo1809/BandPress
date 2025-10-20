@@ -1,0 +1,147 @@
+# BandPress Codebase Rules & Patterns
+
+## Backend (Laravel) Patterns
+
+### Model Relationships & Conventions
+- Use Laravel's standard Eloquent relationships (belongsTo, hasOne, hasMany)
+- Follow singular model names (User, BandSite, BandEvent, BandRelease)
+- Use snake_case for database table names and column names
+- Always include fillable arrays in models for mass assignment
+- Use HasFactory trait for all models
+- Define relationships with proper foreign key specifications when non-standard
+
+### Controller Structure
+- Use single action controllers for simple operations (RepoController, BuilderController)
+- Return JSON responses for API endpoints with consistent structure
+- Use Laravel's built-in validation with $request->validate()
+- Handle errors gracefully with try-catch blocks and return appropriate HTTP status codes
+- Use dependency injection for services in constructors
+
+### Service Layer
+- Create dedicated service classes for complex business logic (GitHubService)
+- Use Http facade for external API calls
+- Implement proper error handling and logging
+- Use environment variables for configuration (GITHUB_TOKEN, GITHUB_USERNAME, etc.)
+
+### Route Organization
+- Use web.php for web routes, api.php for API routes (if applicable)
+- Group authenticated routes with middleware
+- Use named routes consistently
+- Keep route definitions clean and readable
+
+## Frontend (Vue.js + Inertia) Patterns
+
+### Component Structure
+- Use Vue 3 Composition API with <script setup>
+- Import components at the top, then define reactive data and methods
+- Use TypeScript for type safety
+- Follow kebab-case for component file names (NewEventForm.vue, CreateSite.vue)
+- Use PascalCase for component names
+
+### Form Handling
+- Use reactive refs for form data: `const form = ref({...})`
+- Implement toggle states for collapsible forms: `const showForm = ref(false)`
+- Use axios for API calls with proper error handling
+- Follow Laravel's validation patterns on the frontend
+
+### Styling & UI
+- Use Tailwind CSS classes directly in templates
+- Implement dark mode support with dark: prefixes
+- Use responsive design with sm:, md:, lg: breakpoints
+- Follow consistent spacing and color patterns
+- Use Lucide icons via lucide-vue-next
+
+### Layout & Navigation
+- Use AppSidebarLayout for authenticated pages
+- Implement breadcrumbs with BreadcrumbItem type
+- Follow the established sidebar navigation pattern
+- Use Inertia Link components for navigation
+
+## Database & Migration Patterns
+
+### Migration Structure
+- Use descriptive migration names with timestamps
+- Define foreign key constraints with proper cascade behavior
+- Use appropriate column types (string, text, json, etc.)
+- Include both up() and down() methods
+
+### Factory Patterns
+- Create factories for all models (UserFactory, BandSiteFactory)
+- Use faker for realistic test data
+- Define relationships in factories when needed
+
+## GitHub Integration Patterns
+
+### API Interaction
+- Use GitHub's REST API for repository operations
+- Handle authentication with personal access tokens
+- Implement proper error handling for API failures
+- Use base64 encoding/decoding for file content
+
+### Repository Management
+- Create repositories from templates using GitHub's generate endpoint
+- Modify Vue component files programmatically
+- Upload assets to repository directories
+- Commit changes with descriptive messages
+
+## Testing Patterns
+
+### Feature Tests
+- Use RefreshDatabase trait for database tests
+- Mock external services (GitHubService) using createMock()
+- Test API endpoints with postJson() and assertJson()
+- Verify database state changes with assertDatabaseHas()
+- Test file uploads with Storage::fake()
+
+### Unit Tests
+- Test service methods in isolation
+- Mock HTTP requests using Http::fake()
+- Verify method inputs and outputs
+- Test error conditions and edge cases
+
+## Code Organization
+
+### Directory Structure
+- Keep controllers in app/Http/Controllers/
+- Place models in app/Models/
+- Store services in app/Services/
+- Keep factories in database/factories/
+- Organize Vue components in resources/js/components/
+- Use layouts in resources/js/layouts/
+- Keep pages in resources/js/pages/
+
+### Naming Conventions
+- Use PascalCase for classes and components
+- Use camelCase for variables and methods
+- Use kebab-case for file names
+- Use UPPER_SNAKE_CASE for constants
+- Follow Laravel's naming conventions for routes and database
+
+## Development Workflow
+
+### Git Practices
+- Commit frequently with descriptive messages
+- Use feature branches for new functionality
+- Follow conventional commit format when possible
+
+### Code Quality
+- Use Laravel Pint for PHP code formatting
+- Use ESLint and Prettier for JavaScript/TypeScript
+- Run tests before committing changes
+- Keep code DRY (Don't Repeat Yourself)
+
+## Security Considerations
+
+- Never commit sensitive data (API keys, tokens)
+- Use Laravel's built-in CSRF protection
+- Validate all user inputs
+- Implement proper authentication checks
+- Use HTTPS for production deployments
+
+## Performance Patterns
+
+- Use eager loading for relationships when needed
+- Implement caching for frequently accessed data
+- Optimize database queries
+- Use lazy loading for components when appropriate
+- Minimize bundle size with tree shaking
