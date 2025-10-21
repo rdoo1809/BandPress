@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('site_contents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_id')->constrained('band_sites')->onDelete('cascade');
             $table->string('logo')->nullable();
             $table->json('color_scheme')->nullable();
             $table->json('header_images')->nullable();
